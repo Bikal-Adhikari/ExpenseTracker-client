@@ -28,7 +28,7 @@ const Login = () => {
         <Row>
           <Col
             md={6}
-            className="bg-primary vh-100 d-flex justify-content-center align-items-center"
+            className="bg-primary vh-md-100 p-5 d-flex justify-content-center align-items-center"
           >
             <div className="text-white shadow-lg rounded p-3">
               <h1>Welcome Back</h1>
@@ -39,7 +39,7 @@ const Login = () => {
             md={6}
             className="d-flex justify-content-center align-items-center"
           >
-            <div className="shadow-lg p-5 rounded border w-75">
+            <div className="shadow-lg p-5 rounded border w-75 mt-5 mb-5">
               <h2>Login Now</h2>
               <hr />
               <Form>
@@ -50,6 +50,9 @@ const Login = () => {
                   <Button variant="primary">Login Now</Button>
                 </div>
               </Form>
+              <p className="text-end mt-3">
+                Are you new ? <a href="/signup">Signup</a> Now
+              </p>
             </div>
           </Col>
         </Row>
