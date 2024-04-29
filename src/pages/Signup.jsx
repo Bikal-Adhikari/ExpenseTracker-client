@@ -43,7 +43,7 @@ const Signup = () => {
     },
     {
       label: "Confirm Password",
-      name: "confirmpassword",
+      name: "confirmPassword",
       type: "password",
       placeholder: "*********",
       required: true,
