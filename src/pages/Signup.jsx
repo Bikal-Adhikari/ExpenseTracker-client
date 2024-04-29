@@ -3,6 +3,7 @@ import { Footer } from "../components/Footer";
 import { TopNav } from "../components/TopNav";
 import { CustomInput } from "../components/CustomInput";
 import { useState } from "react";
+import { postNewUser } from "../helpers/axiosHelper";
 
 const initialState = {
   name: "",
@@ -57,9 +58,15 @@ const Signup = () => {
     });
   };
 
-  const handelOnSubmit = (e) => {
+  const handelOnSubmit = async (e) => {
     e.preventDefault();
-    console.log(form);
+    const { confirmPassword, ...rest } = form;
+    if (confirmPassword !== rest.password) {
+      return alert("Passwords do not match");
+    }
+
+    const data = await postNewUser(rest);
+
     setForm(initialState);
   };
 
