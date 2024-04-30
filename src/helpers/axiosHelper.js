@@ -1,11 +1,11 @@
 import axios from "axios";
 
 const rootAPI = import.meta.env.VITE_APP_ROOTAPI;
-const userEP = rootAPI + "/user";
+const userEP = rootAPI + "/users";
 
-export const postNewUser = (userObj) => {
+export const postNewUser = async (userObj) => {
   try {
-    const { data } = axios.post(userEP, userObj);
+    const { data } = await axios.post(userEP, userObj);
     return data;
   } catch (error) {
     console.log(error);

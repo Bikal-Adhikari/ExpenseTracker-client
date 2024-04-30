@@ -1,4 +1,4 @@
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { Footer } from "../components/Footer";
 import { TopNav } from "../components/TopNav";
 import { CustomInput } from "../components/CustomInput";
@@ -14,6 +14,7 @@ const initialState = {
 };
 const Signup = () => {
   const [form, setForm] = useState(initialState);
+  const [resp, setResp] = useState({});
   const inputes = [
     {
       label: "Name",
@@ -31,7 +32,7 @@ const Signup = () => {
     },
     {
       label: "Phone no. (Optional)",
-      name: "Phone",
+      name: "phone",
       type: "number",
       placeholder: "Enter your Number",
     },
@@ -66,8 +67,8 @@ const Signup = () => {
     }
 
     const data = await postNewUser(rest);
-
-    setForm(initialState);
+    console.log(data);
+    setResp(data);
   };
 
   return (
@@ -92,6 +93,13 @@ const Signup = () => {
             <div className="shadow-lg p-5 rounded border w-75 mt-5 mb-5">
               <h2>Signup Now</h2>
               <hr />
+              {resp?.message && (
+                <Alert
+                  variant={resp?.status === "success" ? "success" : "danger"}
+                >
+                  {resp.message}
+                </Alert>
+              )}
               <Form onSubmit={handelOnSubmit}>
                 {inputes.map((item, i) => (
                   <CustomInput key={i} {...item} onChange={handleOnChange} />
