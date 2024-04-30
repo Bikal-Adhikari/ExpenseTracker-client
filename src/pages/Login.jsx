@@ -2,8 +2,15 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { Footer } from "../components/Footer";
 import { TopNav } from "../components/TopNav";
 import { CustomInput } from "../components/CustomInput";
+import { useState } from "react";
+import { postUser } from "../helpers/axiosHelper";
 
+const initialData = {
+  email: "",
+  password: "",
+};
 const Login = () => {
+  const [login, setLogin] = useState(initialData);
   const inputes = [
     {
       label: "Email address",
@@ -11,6 +18,7 @@ const Login = () => {
       type: "email",
       placeholder: "Enter your email",
       required: true,
+      value: login.email,
     },
     {
       label: "Password",
@@ -18,8 +26,24 @@ const Login = () => {
       type: "password",
       placeholder: "*********",
       required: true,
+      value: login.password,
     },
   ];
+
+  const handleOnChange = (e) => {
+    const { name, value } = e.target;
+    setLogin({
+      ...login,
+      [name]: value,
+    });
+  };
+
+  const handelOnSubmit = async (e) => {
+    e.preventDefault();
+
+    const data = await postUser(login);
+    console.log(data);
+  };
   return (
     <div>
       <TopNav />
@@ -42,12 +66,14 @@ const Login = () => {
             <div className="shadow-lg p-5 rounded border w-75 mt-5 mb-5">
               <h2>Login Now</h2>
               <hr />
-              <Form>
+              <Form onSubmit={handelOnSubmit}>
                 {inputes.map((item, i) => (
-                  <CustomInput key={i} {...item} />
+                  <CustomInput key={i} {...item} onChange={handleOnChange} />
                 ))}
                 <div className="d-grid">
-                  <Button variant="primary">Login Now</Button>
+                  <Button type="submit" variant="primary">
+                    Login Now
+                  </Button>
                 </div>
               </Form>
               <p className="text-end mt-3">

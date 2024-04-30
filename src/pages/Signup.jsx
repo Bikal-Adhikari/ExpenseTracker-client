@@ -8,7 +8,7 @@ import { postNewUser } from "../helpers/axiosHelper";
 const initialState = {
   name: "",
   email: "",
-  phone: null,
+  phone: "",
   password: "",
   confirmPassword: "",
 };
@@ -22,6 +22,7 @@ const Signup = () => {
       type: "text",
       placeholder: "Enter your Name",
       required: true,
+      value: form.name,
     },
     {
       label: "Email address",
@@ -29,12 +30,14 @@ const Signup = () => {
       type: "email",
       placeholder: "Enter your email",
       required: true,
+      value: form.email,
     },
     {
       label: "Phone no. (Optional)",
       name: "phone",
       type: "number",
       placeholder: "Enter your Number",
+      value: form.phone,
     },
     {
       label: "Password",
@@ -42,6 +45,7 @@ const Signup = () => {
       type: "password",
       placeholder: "*********",
       required: true,
+      value: form.password,
     },
     {
       label: "Confirm Password",
@@ -49,6 +53,7 @@ const Signup = () => {
       type: "password",
       placeholder: "*********",
       required: true,
+      value: form.confirmPassword,
     },
   ];
   const handleOnChange = (e) => {
@@ -69,6 +74,7 @@ const Signup = () => {
     const data = await postNewUser(rest);
     console.log(data);
     setResp(data);
+    data.status === "success" && setForm(initialState);
   };
 
   return (
