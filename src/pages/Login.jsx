@@ -1,16 +1,19 @@
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { Footer } from "../components/Footer";
 import { TopNav } from "../components/TopNav";
 import { CustomInput } from "../components/CustomInput";
 import { useState } from "react";
-import { postUser } from "../helpers/axiosHelper";
+import { userLogin } from "../helpers/axiosHelper";
+import { useNavigate } from "react-router-dom";
 
 const initialData = {
   email: "",
   password: "",
 };
-const Login = () => {
+const Login = ({ setLoggedInUser }) => {
+  const navigate = useNavigate();
   const [login, setLogin] = useState(initialData);
+  const [resp, setResp] = useState({});
   const inputes = [
     {
       label: "Email address",
@@ -41,8 +44,14 @@ const Login = () => {
   const handelOnSubmit = async (e) => {
     e.preventDefault();
 
-    const data = await postUser(login);
-    console.log(data);
+    const { status, message, user } = await userLogin(login);
+    setResp({ status, message });
+
+    if (status === "success") {
+      setLoggedInUser(user);
+
+      navigate("/dashboard");
+    }
   };
   return (
     <div>
@@ -66,6 +75,13 @@ const Login = () => {
             <div className="shadow-lg p-5 rounded border w-75 mt-5 mb-5">
               <h2>Login Now</h2>
               <hr />
+              {resp?.message && (
+                <Alert
+                  variant={resp?.status === "success" ? "success" : "danger"}
+                >
+                  {resp.message}
+                </Alert>
+              )}
               <Form onSubmit={handelOnSubmit}>
                 {inputes.map((item, i) => (
                   <CustomInput key={i} {...item} onChange={handleOnChange} />

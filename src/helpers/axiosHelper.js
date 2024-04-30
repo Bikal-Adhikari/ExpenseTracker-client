@@ -16,9 +16,9 @@ export const postNewUser = async (userObj) => {
     };
   }
 };
-export const postUser = async (userObj) => {
+export const userLogin = async (loginInfo) => {
   try {
-    const { data } = await axios.post(userLoginEp, userObj);
+    const { data } = await axios.post(userLoginEp, loginInfo);
     return data;
   } catch (error) {
     console.log(error);
