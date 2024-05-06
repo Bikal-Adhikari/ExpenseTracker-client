@@ -4,6 +4,8 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import { useEffect, useState } from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState({});
@@ -30,6 +32,7 @@ function App() {
           element={<Dashboard loggedInUser={loggedInUser} />}
         />
       </Routes>
+      <ToastContainer />
     </div>
   );
 }

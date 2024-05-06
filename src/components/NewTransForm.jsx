@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { CustomInput, CustomSelect } from "./CustomInput";
 import { Button, Col, Form, Row } from "react-bootstrap";
+import { toast } from "react-toastify";
+import { postNewTrans } from "../helpers/axiosHelper";
 
 const NewTransForm = () => {
   const [form, setForm] = useState({});
@@ -11,9 +13,10 @@ const NewTransForm = () => {
       [name]: value,
     });
   };
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
-    console.log(form);
+    const data = await postNewTrans(form);
+    toast(data.message);
   };
   const inputs = [
     {
