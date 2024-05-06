@@ -1,14 +1,36 @@
-import React from "react";
-import { CustomInput } from "./CustomInput";
+import { useState } from "react";
+import { CustomInput, CustomSelect } from "./CustomInput";
 import { Button, Col, Form, Row } from "react-bootstrap";
 
 const NewTransForm = () => {
+  const [form, setForm] = useState({});
+  const handleOnChange = (e) => {
+    const { name, value } = e.target;
+    setForm({
+      ...form,
+      [name]: value,
+    });
+  };
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    console.log(form);
+  };
   const inputs = [
     {
       name: "type",
-      type: "text",
       placeholder: "type",
       required: true,
+      elmType: "select",
+      options: [
+        {
+          value: "income",
+          text: "Income",
+        },
+        {
+          value: "expenses",
+          text: "Expenses",
+        },
+      ],
     },
     {
       name: "title",
@@ -29,11 +51,15 @@ const NewTransForm = () => {
     },
   ];
   return (
-    <Form className="shadow-lg p-3 border rounded">
+    <Form className="shadow-lg p-3 border rounded" onSubmit={handleOnSubmit}>
       <Row>
-        {inputs.map((item, i) => (
+        {inputs.map(({ elmType, ...item }, i) => (
           <Col md={2} key={i}>
-            <CustomInput {...item} />
+            {elmType === "select" ? (
+              <CustomSelect {...item} onChange={handleOnChange} />
+            ) : (
+              <CustomInput {...item} onChange={handleOnChange} />
+            )}
           </Col>
         ))}
         <Col className="mb-3 d-grid">
