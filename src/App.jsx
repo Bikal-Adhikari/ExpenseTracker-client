@@ -9,7 +9,8 @@ function App() {
   const [loggedInUser, setLoggedInUser] = useState({});
 
   useEffect(() => {
-    setLoggedInUser(JSON.parse(localStorage.getItem("user")));
+    const userStr = localStorage.getItem("user");
+    userStr && setLoggedInUser(JSON.parse(userStr));
   }, []);
   return (
     <div className="wrapper">

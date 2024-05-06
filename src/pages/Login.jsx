@@ -16,8 +16,9 @@ const Login = ({ setLoggedInUser, loggedInUser }) => {
   const [resp, setResp] = useState({});
 
   useEffect(() => {
-    loggedInUser && navigate("/dashboard");
-  }, []);
+    loggedInUser?._id && navigate("/dashboard");
+  }, [loggedInUser]);
+
   const inputes = [
     {
       label: "Email address",

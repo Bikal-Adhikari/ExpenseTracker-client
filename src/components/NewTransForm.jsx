@@ -1,6 +1,6 @@
 import React from "react";
 import { CustomInput } from "./CustomInput";
-import { Col, Form, Row } from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
 
 const NewTransForm = () => {
   const inputs = [
@@ -29,10 +29,17 @@ const NewTransForm = () => {
     },
   ];
   return (
-    <Form>
+    <Form className="shadow-lg p-3 border rounded">
       <Row>
-        <Col>
-          <CustomInput />
+        {inputs.map((item, i) => (
+          <Col md={2} key={i}>
+            <CustomInput {...item} />
+          </Col>
+        ))}
+        <Col className="mb-3 d-grid">
+          <Button variant="primary" type="submit">
+            Add Transaction
+          </Button>
         </Col>
       </Row>
     </Form>
