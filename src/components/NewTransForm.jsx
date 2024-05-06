@@ -57,17 +57,15 @@ const NewTransForm = ({ getUserTransactions }) => {
   return (
     <Form className="shadow-lg p-3 border rounded" onSubmit={handleOnSubmit}>
       <Row>
-        {inputs.map(({ elmType, ...item }, i) => (
-          <Col md={2} key={i}>
-            {elmType === "select" ? (
-              <CustomSelect {...item} onChange={handleOnChange} />
+        <Col>
+          {inputs.map(({ elmType, ...item }, i) =>
+            elmType === "select" ? (
+              <CustomSelect key={i} {...item} onChange={handleOnChange} />
             ) : (
-              <CustomInput {...item} onChange={handleOnChange} />
-            )}
-          </Col>
-        ))}
-        <Col className="mb-3 d-grid">
-          <Button variant="primary" type="submit">
+              <CustomInput key={i} {...item} onChange={handleOnChange} />
+            )
+          )}
+          <Button variant="primary" type="submit" className="w-100">
             Add Transaction
           </Button>
         </Col>
