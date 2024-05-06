@@ -4,12 +4,20 @@ import { TopNav } from "../components/TopNav";
 import { AuthComp } from "../components/AuthComp";
 
 import NewTransForm from "../components/NewTransForm";
+import { TransactionTable } from "../components/TransactionTable";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { fetchTrans } from "../helpers/axiosHelper";
 
 const Dashboard = ({ loggedInUser }) => {
-  //   const navigate = useNavigate();
-  //   useEffect(() => {
-  //     return navigate("/");
-  //   }, []);
+  const [transactions, setTransactions] = useState([]);
+  useEffect(() => {
+    getUserTransactions();
+  }, []);
+  const getUserTransactions = async () => {
+    const { status, message, trans } = await fetchTrans();
+    status === "error" ? toast.error(message) : setTransactions(trans);
+  };
   return (
     <AuthComp loggedInUser={loggedInUser}>
       <TopNav loggedInUser={loggedInUser} />
@@ -18,10 +26,12 @@ const Dashboard = ({ loggedInUser }) => {
         <h4>Dashboard | Welcome Back {loggedInUser?.name}</h4>
         <hr />
 
-        <NewTransForm />
+        <NewTransForm getUserTransactions={getUserTransactions} />
 
-        <Row>
-          <Col></Col>
+        <Row className="mt-5">
+          <Col>
+            <TransactionTable transactions={transactions} />
+          </Col>
         </Row>
       </Container>
       <Footer />

@@ -4,7 +4,7 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { postNewTrans } from "../helpers/axiosHelper";
 
-const NewTransForm = () => {
+const NewTransForm = ({ getUserTransactions }) => {
   const [form, setForm] = useState({});
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -15,8 +15,9 @@ const NewTransForm = () => {
   };
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    const data = await postNewTrans(form);
-    toast(data.message);
+    const { status, message } = await postNewTrans(form);
+    toast[status](message);
+    status === "success" && getUserTransactions();
   };
   const inputs = [
     {

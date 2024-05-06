@@ -5,6 +5,12 @@ const userEP = rootAPI + "/users";
 const transEP = rootAPI + "/transactions";
 const userLoginEp = userEP + "/login";
 
+const getUserId = () => {
+  const userStr = localStorage.getItem("user");
+  const userObj = userStr ? JSON.parse(userStr) : null;
+  return userObj?._id ?? null;
+};
+
 // #======= user rootAPI ============
 
 export const postNewUser = async (userObj) => {
@@ -36,7 +42,37 @@ export const userLogin = async (loginInfo) => {
 
 export const postNewTrans = async (transObj) => {
   try {
-    const { data } = await axios.post(transEP, transObj);
+    const userId = getUserId();
+    if (!userId) {
+      throw new Error("User id doesn't exist! Login and try again");
+    }
+
+    const { data } = await axios.post(transEP, transObj, {
+      headers: {
+        Authorization: userId,
+      },
+    });
+    return data;
+  } catch (error) {
+    console.log(error);
+    return {
+      status: "error",
+      message: error.message,
+    };
+  }
+};
+export const fetchTrans = async () => {
+  try {
+    const userId = getUserId();
+    if (!userId) {
+      throw new Error("User id doesn't exist! Login and try again");
+    }
+
+    const { data } = await axios.get(transEP, {
+      headers: {
+        Authorization: userId,
+      },
+    });
     return data;
   } catch (error) {
     console.log(error);
