@@ -2,7 +2,7 @@ import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { Footer } from "../components/Footer";
 import { TopNav } from "../components/TopNav";
 import { CustomInput } from "../components/CustomInput";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { userLogin } from "../helpers/axiosHelper";
 import { useNavigate } from "react-router-dom";
 
@@ -10,10 +10,14 @@ const initialData = {
   email: "",
   password: "",
 };
-const Login = ({ setLoggedInUser }) => {
+const Login = ({ setLoggedInUser, loggedInUser }) => {
   const navigate = useNavigate();
   const [login, setLogin] = useState(initialData);
   const [resp, setResp] = useState({});
+
+  useEffect(() => {
+    loggedInUser && navigate("/dashboard");
+  }, []);
   const inputes = [
     {
       label: "Email address",
@@ -49,7 +53,7 @@ const Login = ({ setLoggedInUser }) => {
 
     if (status === "success") {
       setLoggedInUser(user);
-
+      localStorage.setItem("user", JSON.stringify(user));
       navigate("/dashboard");
     }
   };

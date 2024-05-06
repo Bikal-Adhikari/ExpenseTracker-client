@@ -1,7 +1,9 @@
-import { Container } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import { Footer } from "../components/Footer";
 import { TopNav } from "../components/TopNav";
 import { AuthComp } from "../components/AuthComp";
+
+import NewTransForm from "../components/NewTransForm";
 
 const Dashboard = ({ loggedInUser }) => {
   //   const navigate = useNavigate();
@@ -15,6 +17,12 @@ const Dashboard = ({ loggedInUser }) => {
       <Container className="main pt-3">
         <h4>Dashboard | Welcome Back {loggedInUser?.name}</h4>
         <hr />
+
+        <NewTransForm />
+
+        <Row>
+          <Col></Col>
+        </Row>
       </Container>
       <Footer />
     </AuthComp>
