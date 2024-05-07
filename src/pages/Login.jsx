@@ -5,13 +5,15 @@ import { CustomInput } from "../components/CustomInput";
 import { useEffect, useState } from "react";
 import { userLogin } from "../helpers/axiosHelper";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../UserContext";
 
 const initialData = {
   email: "",
   password: "",
 };
-const Login = ({ setLoggedInUser, loggedInUser }) => {
+const Login = () => {
   const navigate = useNavigate();
+  const { loggedInUser, setLoggedInUser } = useUser();
   const [login, setLogin] = useState(initialData);
   const [resp, setResp] = useState({});
 

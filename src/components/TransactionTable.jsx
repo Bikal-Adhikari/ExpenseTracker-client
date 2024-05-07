@@ -1,6 +1,12 @@
 import Table from "react-bootstrap/Table";
+import { useUser } from "../UserContext";
+import { useEffect } from "react";
 
-export const TransactionTable = ({ transactions }) => {
+export const TransactionTable = () => {
+  const { transactions, getUserTransactions } = useUser();
+  useEffect(() => {
+    getUserTransactions();
+  }, []);
   const total = transactions?.reduce((acc, item) => {
     return item.type === "income" ? acc + item.amount : acc - item.amount;
   }, 0);

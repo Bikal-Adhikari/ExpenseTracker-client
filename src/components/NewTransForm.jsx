@@ -3,9 +3,11 @@ import { CustomInput, CustomSelect } from "./CustomInput";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { postNewTrans } from "../helpers/axiosHelper";
+import { useUser } from "../UserContext";
 
-const NewTransForm = ({ getUserTransactions }) => {
+const NewTransForm = () => {
   const [form, setForm] = useState({});
+  const { getUserTransactions, setShowForm } = useUser();
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setForm({
@@ -17,7 +19,7 @@ const NewTransForm = ({ getUserTransactions }) => {
     e.preventDefault();
     const { status, message } = await postNewTrans(form);
     toast[status](message);
-    status === "success" && getUserTransactions();
+    status === "success" && getUserTransactions() && setShowForm(false);
   };
   const inputs = [
     {
@@ -46,6 +48,7 @@ const NewTransForm = ({ getUserTransactions }) => {
       name: "amount",
       type: "number",
       placeholder: "2345",
+      min: "1",
       required: true,
     },
     {
