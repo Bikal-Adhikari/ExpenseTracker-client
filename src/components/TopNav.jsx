@@ -14,9 +14,12 @@ export const TopNav = ({ loggedInUser }) => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
             {loggedInUser?._id ? (
-              <Nav.Link href="/" onClick={handelOnLogOut}>
-                LogOut
-              </Nav.Link>
+              <>
+                <Nav.Link href="/dashboard">Dashboard</Nav.Link>
+                <Nav.Link href="/" onClick={handelOnLogOut}>
+                  LogOut
+                </Nav.Link>
+              </>
             ) : (
               <>
                 {" "}
