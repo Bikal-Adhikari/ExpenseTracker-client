@@ -82,3 +82,25 @@ export const fetchTrans = async () => {
     };
   }
 };
+export const deleteTrans = async (idsToDelete) => {
+  try {
+    const userId = getUserId();
+    if (!userId) {
+      throw new Error("User id doesn't exist! Login and try again");
+    }
+
+    const { data } = await axios.delete(transEP, {
+      data: idsToDelete,
+      headers: {
+        Authorization: userId,
+      },
+    });
+    return data;
+  } catch (error) {
+    console.log(error);
+    return {
+      status: "error",
+      message: error.message,
+    };
+  }
+};
