@@ -12,4 +12,5 @@ Currently, two official plugins are available:
 
 - yarn add react-bootstrap bootstrap
 - yarn add axios
+- yarn add react-router
 
