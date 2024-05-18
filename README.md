@@ -11,4 +11,5 @@ Currently, two official plugins are available:
 - yarn create vite --template
 
 - yarn add react-bootstrap bootstrap
+- yarn add axios
 
