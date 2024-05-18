@@ -9,3 +9,6 @@ Currently, two official plugins are available:
 
 # Install
 - yarn create vite --template
+
+- yarn add react-bootstrap bootstrap
+
