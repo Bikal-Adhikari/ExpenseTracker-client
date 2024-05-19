@@ -7,9 +7,11 @@ import { TransactionTable } from "../components/TransactionTable";
 
 import { CustomModal } from "../components/CustomModal";
 import { useUser } from "../UserContext";
+import { TransactionCharts } from "../components/Chart";
+import { ItemSelector } from "../components/ItemSelector";
 
 const Dashboard = () => {
-  const { loggedInUser, setShowForm } = useUser();
+  const { loggedInUser, setShowForm, transactions } = useUser();
 
   return (
     <AuthComp>
@@ -30,6 +32,8 @@ const Dashboard = () => {
         </Row>
         <Row className="mt-5">
           <Col>
+            <ItemSelector />
+            <TransactionCharts key={transactions.length} />
             <TransactionTable />
           </Col>
         </Row>

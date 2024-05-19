@@ -8,6 +8,7 @@ import { useUser } from "../UserContext";
 const NewTransForm = () => {
   const [form, setForm] = useState({});
   const { getUserTransactions, setShowForm } = useUser();
+
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setForm({
@@ -15,12 +16,17 @@ const NewTransForm = () => {
       [name]: value,
     });
   };
+
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     const { status, message } = await postNewTrans(form);
     toast[status](message);
-    status === "success" && getUserTransactions() && setShowForm(false);
+    if (status === "success") {
+      await getUserTransactions();
+      setShowForm(false);
+    }
   };
+
   const inputs = [
     {
       name: "type",
@@ -28,22 +34,11 @@ const NewTransForm = () => {
       required: true,
       elmType: "select",
       options: [
-        {
-          value: "income",
-          text: "Income",
-        },
-        {
-          value: "expenses",
-          text: "Expenses",
-        },
+        { value: "income", text: "Income" },
+        { value: "expenses", text: "Expenses" },
       ],
     },
-    {
-      name: "title",
-      type: "text",
-      placeholder: "Salary",
-      required: true,
-    },
+    { name: "title", type: "text", placeholder: "Salary", required: true },
     {
       name: "amount",
       type: "number",
@@ -51,12 +46,9 @@ const NewTransForm = () => {
       min: "1",
       required: true,
     },
-    {
-      name: "date",
-      type: "date",
-      required: true,
-    },
+    { name: "date", type: "date", required: true },
   ];
+
   return (
     <Form className="shadow-lg p-3 border rounded" onSubmit={handleOnSubmit}>
       <Row>

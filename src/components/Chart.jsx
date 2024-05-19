@@ -1,24 +1,33 @@
-import React, { useEffect, useMemo } from "react";
-import { Col, Row } from "react-bootstrap";
-import { Bar, Doughnut, Line } from "react-chartjs-2";
-import { Chart as ChartJS } from "chart.js/auto";
-import { useUser } from "../userContext";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement,
+} from "chart.js";
+import { Bar, Doughnut } from "react-chartjs-2";
+import { useUser } from "../UserContext";
+
+// Register the components
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement
+);
 
 export const TransactionCharts = () => {
-  const { chartData } = useUser();
-  console.log(chartData.mainData);
-
+  const { chartData, calcChartData } = useUser();
   return (
-    <Row className="border shadow rounded p-3 mt-3">
-      <Col>
-        <Bar data={chartData.mainData} height={150} />
-      </Col>
-      <Col>
-        <Doughnut data={chartData.mainData} width={150} />
-      </Col>
-      {/* <Col>
-        <Line data={chartData.lineData} height={150} width={150} />
-      </Col> */}
-    </Row>
+    <div>
+      <Bar data={chartData} options={calcChartData} />
+      <Doughnut data={chartData} options={calcChartData} />
+    </div>
   );
 };

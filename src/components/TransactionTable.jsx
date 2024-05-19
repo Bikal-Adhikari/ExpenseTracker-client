@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { deleteTrans } from "../helpers/axiosHelper";
 import { toast } from "react-toastify";
-import { Pie } from "react-chartjs-2";
 
 export const TransactionTable = () => {
   const { transactions, getUserTransactions } = useUser();
@@ -69,7 +68,7 @@ export const TransactionTable = () => {
           checked={transactions.every((item) => idsToDelete.includes(item._id))}
         />
       </div>
-      <Pie />
+
       <Table striped bordered hover>
         <thead>
           <tr>
